@@ -1,0 +1,16 @@
+  version: '3.7'
+
+  services:
+    webapplication:
+      image: webapplication
+      build:
+        context: .
+        dockerfile: Dockerfile
+    webapplication-tests:
+      image: webapplication-tests
+      build:
+        context: .
+        dockerfile: Dockerfile      
+        target: test
+      volumes:
+      - ./tmp/test:/tests

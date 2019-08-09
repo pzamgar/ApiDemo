@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
 namespace ApiBuildDemo.Api.Controllers {
-    [Produces ("application/json")]
-    [Route ("api/[controller]")]
     [ApiController]
+    [ApiVersion("1")]
+    [Route ("api/v{version:apiVersion}/[controller]")]
+    [Produces ("application/json")]
     public class ValuesController : ControllerBase {
         /// <summary>
         /// Get list of values

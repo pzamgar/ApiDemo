@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup Label="Microsoft dependencies">
-        <PackageReference Update="Microsoft.AspNetCore.App" Version="2.2.0"/>
-    </ItemGroup>
 
-    <ItemGroup Label="Test dependencies">
-        <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.2.0" />
-        <PackageReference Update="xunit" Version="2.4.1" />
-        <PackageReference Update="xunit.runner.visualstudio" Version="2.4.1" />
-        <PackageReference Update="Moq" Version="4.12.0" />
-        <PackageReference Update="Microsoft.AspNetCore.TestHost" Version="2.2.0" />
-    </ItemGroup>
+    <PropertyGroup Label="Package Versions">
+        <SwashbuckleAspNetCore>5.0.0-rc2</SwashbuckleAspNetCore>
+        <Moq>4.12.0</Moq>
+        <xunit>2.4.1</xunit>
+        <xunitrunnervisualstudio>2.4.1</xunitrunnervisualstudio>
+        <MicrosoftNETTestSdk>16.2.0-preview-20190606-02</MicrosoftNETTestSdk>
+        <MicrosoftAspNetCoreTestHost>2.2.0</MicrosoftAspNetCoreTestHost>
+    </PropertyGroup>
 </Project>

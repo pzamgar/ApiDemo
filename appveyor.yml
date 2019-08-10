@@ -14,7 +14,7 @@ before_build:
 build:
   verbosity: minimal
 after_build:
-- cmd: 7z a ApiDemoAppveyor_%configuration%.zip \bin\%configuration%\netcoreapp2.2\*.dll
+- cmd: 7z a ApiDemoAppveyor_%configuration%.zip .\bin\%configuration%\netcoreapp2.2\*.dll
 artifacts:
 - path: ApiDemoVeyor_%configuration%.zip
   name: ApiDemoVeyor

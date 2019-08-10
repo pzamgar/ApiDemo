@@ -19,8 +19,12 @@ artifacts:
 - path: ApiDemoVeyor_%configuration%.zip
   name: ApiDemoVeyor
 deploy:
-  provider: Environment
+- provider: GitHub
+  auth_token:
+    secure: IxtHW1biWvUK5oyuRGwIMzXihhZ2Y1RQUlKsahWm+tklXxodoiQqksHCzw6/vGhk
   force_update: true
+  on:
+    branch: master
 notifications:
 - provider: Email
   to:

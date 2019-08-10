@@ -16,8 +16,8 @@ build:
 after_build:
 - cmd: 7z a ApiDemoAppveyor_%configuration%.zip src\ApiBuildDemo.*\bin\%configuration%\netcoreapp2.2\*.dll
 artifacts:
-- path: ApiDemoVeyor_%configuration%.zip
-  name: ApiDemoVeyor
+- path: ApiDemoAppveyor_%configuration%.zip
+  name: ApiDemoAppVeyor
 deploy:
 - provider: GitHub
   auth_token:

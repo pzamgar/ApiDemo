@@ -1,15 +1,17 @@
-# Demo WebApi notes and Continuous deployment
+# Demo WebApi and Continuous deployment
 
-Appveyor [![Build status](https://ci.appveyor.com/api/projects/status/6r9dr4v54dcvl821?svg=true)](https://ci.appveyor.com/project/pzamgar/apidemo)
+Master |
+------ |
+[![Build status](https://ci.appveyor.com/api/projects/status/6r9dr4v54dcvl821?svg=true)](https://ci.appveyor.com/project/pzamgar/apidemo) |
+
 
 Demo practica de una webapi realizada en .net core.
-
-Sencilla webapi que realiza la gestion de notas.
-Ejecucion de la webapi en docker y continuous deployment con appveyor.
+Ejecucion webapi en docker y continuous deployment con appveyor.
 
 > IMPORTANTE
 >
 > La rama master corre sobre .net core 2.2.
+
 
 ## Running the sample using Docker
 En directorio raiz del proyecto ejecutar los comandos siguientes:

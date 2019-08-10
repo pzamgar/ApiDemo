@@ -19,6 +19,7 @@ artifacts:
 - path: ApiDemoVeyor_%configuration%.zip
   name: ApiDemoVeyor
 deploy:
+  provider: Environment
   force_update: true
 notifications:
 - provider: Email

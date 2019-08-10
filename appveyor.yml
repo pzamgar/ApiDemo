@@ -13,8 +13,10 @@ before_build:
 - cmd: nuget restore
 build:
   verbosity: minimal
+after_build:
+- cmd: 7z a ApiDemoAppveyor_%configuration%.zip src\ApiBuildDemo.*\bin\%configuration%\netcoreapp2.2\*.dll
 artifacts:
-- path: '**\*.dll'
+- path: ApiDemoVeyor_%configuration%.zip
   name: ApiDemoVeyor
 deploy:
 - provider: GitHub

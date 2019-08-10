@@ -1,0 +1,33 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration: Release
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+before_build:
+- cmd: nuget restore
+build:
+  verbosity: minimal
+after_build:
+- cmd: 7z a ApiDemoAppveyor_%configuration%.zip %APPVEYOR_BUILD_FOLDER%\src\*\bin\%configuration%\*\*.dll
+artifacts:
+- path: ApiDemoVeyor_%configuration%.zip
+  name: ApiDemoVeyor
+deploy:
+  force_update: true
+  on:
+    branch: master
+notifications:
+- provider: Email
+  to:
+  - pzamgar@gmail.com
+  subject: apidemo build {{status}}
+  message: https://ci.appveyor.com/project/pzamgar/apidemo
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true

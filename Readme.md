@@ -14,11 +14,14 @@ Ejecucion webapi en docker y continuous deployment con appveyor.
 
 
 ## Running the sample using Docker
-En directorio raiz del proyecto ejecutar los comandos siguientes:
+
+Construir y levantar Demo en Docker:
 > docker-compose build
 >
 > docker-compose up
 
-Se muestra la documentacion de la api en swagger en localhost:
+Documentacion OpenApi con Swagger:
 > http://localhost:3000/index.html
 
+Gestion de los logs registrados con Seq:
+> http://localhost:5341

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ApiBuildDemo.Core.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,7 @@ namespace ApiBuildDemo.Api {
             services.AddLogging (loggingBuilder => {
                 loggingBuilder.AddSeq ();
             });
+            services.AddCoreServices ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

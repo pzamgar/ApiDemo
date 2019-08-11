@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ApiBuildDemo.Core.Interfases;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,9 +15,9 @@ namespace ApiBuildDemo.Api.Controllers {
     [Produces ("application/json")]
     public class ValuesController : ControllerBase {
 
-        private readonly ILogger<ValuesController> _logger;
+        private readonly ILoggerAdapter<ValuesController> _logger;
 
-        public ValuesController (ILogger<ValuesController> logger) {
+        public ValuesController (ILoggerAdapter<ValuesController> logger) {
             _logger = logger;
         }
 

@@ -31,6 +31,9 @@ namespace ApiBuildDemo.Api {
 
             services.AddApiVersionCustom ();
             services.AddSwaggerCustom ();
+            services.AddLogging (loggingBuilder => {
+                loggingBuilder.AddSeq ();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

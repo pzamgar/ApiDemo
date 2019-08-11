@@ -28,11 +28,10 @@ namespace ApiBuildDemo.Api {
                     config.AddEnvironmentVariables ();
                 })
                 .ConfigureLogging ((hostingContext, logging) => {
-
-                    var logger = new LoggerConfiguration ()
+                     Log.Logger = new LoggerConfiguration ()
                         .ReadFrom.Configuration (hostingContext.Configuration)
                         .CreateLogger ();
-                    logger.Information ("Create Logger.");
+                    Log.Information ("Starting web host");
                 })
                 .UseSerilog ()
                 .UseStartup<Startup> ();

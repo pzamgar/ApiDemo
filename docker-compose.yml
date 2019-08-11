@@ -1,11 +1,17 @@
   version: '3.7'
 
   services:
+    seq:
+      image: datalust/seq:latest
     webapplication:
       image: webapplication
       build:
         context: .
         dockerfile: Dockerfile
+      volumes:
+        - ./tmp/logs:/logs/
+      depends_on:
+        - seq
     webapplication-tests:
       image: webapplication-tests
       build:

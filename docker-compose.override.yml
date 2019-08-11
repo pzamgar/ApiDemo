@@ -4,7 +4,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
     ports:
-      - 5340:80
+      - 5341:80
   webapplication:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

@@ -3,15 +3,16 @@
   services:
     seq:
       image: datalust/seq:latest
+      volumes:
+        - ./tmp/seq:/data
+      restart: unless-stopped
     webapplication:
       image: webapplication
       build:
         context: .
         dockerfile: Dockerfile
       volumes:
-        - ./tmp/logs:/logs/
-      depends_on:
-        - seq
+        - ./tmp/logs:/logs
     webapplication-tests:
       image: webapplication-tests
       build:

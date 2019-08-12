@@ -25,3 +25,8 @@ Documentacion OpenApi con Swagger:
 
 Gestion de los logs registrados con Seq:
 > http://localhost:5341
+
+Gestion HealthCheck aplicacion:
+> http://localhost:5000/healthchecks-ui
+>
+> https://localhost:5001/hc

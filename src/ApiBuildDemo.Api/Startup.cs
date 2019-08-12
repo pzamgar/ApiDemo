@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using ApiBuildDemo.Core.Extensions;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ApiBuildDemo.Api {
@@ -35,6 +39,10 @@ namespace ApiBuildDemo.Api {
             services.AddLogging (loggingBuilder => {
                 loggingBuilder.AddSeq ();
             });
+
+            services.AddHealthChecks ();
+            services.AddHealthChecksUI ();
+
             services.AddCoreServices ();
         }
 
@@ -56,6 +64,11 @@ namespace ApiBuildDemo.Api {
                 }
             });
 
+            app.UseHealthChecks ("/hc", new HealthCheckOptions () {
+                Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+            app.UseHealthChecksUI ();
             app.UseHttpsRedirection ();
             app.UseMvc ();
         }

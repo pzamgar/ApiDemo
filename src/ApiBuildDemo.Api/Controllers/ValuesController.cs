@@ -37,7 +37,7 @@ namespace ApiBuildDemo.Api.Controllers {
         [ProducesResponseType (typeof (string), StatusCodes.Status500InternalServerError)]
         public ActionResult<IEnumerable<string>> Get () {
             var values = new string[] { "value1", "value2" };
-            _logger.LogError ("---> Prueba Seq docker");
+            _logger.LogWarning ("---> Prueba Seq docker");
             return values;
         }
     }

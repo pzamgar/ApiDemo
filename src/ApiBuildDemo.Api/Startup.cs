@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ApiBuildDemo.Core.Extensions;
+using HealthChecks.Publisher.Seq;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -16,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -40,7 +43,13 @@ namespace ApiBuildDemo.Api {
                 loggingBuilder.AddSeq ();
             });
 
-            services.AddHealthChecks ();
+            var seqServerUrl = Configuration["Serilog:SeqServerUrl"];
+            services.AddHealthChecks ()
+                .AddCheck ("unhealthy", check => HealthCheckResult.Unhealthy ())
+                .AddSeqPublisher (options => {
+                    options.Endpoint = string.IsNullOrWhiteSpace (seqServerUrl) ? "http://seq" : seqServerUrl;
+                    options.ApiKey = "A8buUymer3O9Iq0mc2G7";
+                });
             services.AddHealthChecksUI ();
 
             services.AddCoreServices ();

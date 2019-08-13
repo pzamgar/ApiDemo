@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApiBuildDemo.Core.Extensions;
 using ApiBuildDemo.Core.Filters;
+using ApiBuildDemo.Infrastructure.Data;
 using HealthChecks.Publisher.Seq;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -39,6 +41,12 @@ namespace ApiBuildDemo.Api {
             services.AddMvc (options => {
                 options.Filters.Add (typeof (TrackActionPerformanceFilter));
             }).SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<ValueContext> (options =>
+                options.UseSqlServer (
+                    Configuration.GetConnectionString ("ValueConnection")
+                )
+            );
 
             services.AddApiVersionCustom ();
             services.AddSwaggerCustom ();

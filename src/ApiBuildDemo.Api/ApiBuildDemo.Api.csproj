@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="2.2.32"/>
-    <PackageReference Include="AspNetCore.HealthChecks.Publisher.Seq" Version="2.2.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.Publisher.Seq" Version="2.2.1"/>
     <PackageReference Include="Microsoft.AspNetCore.App"/>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="$(MicrosoftAspNetCoreMvcCore)"/>
@@ -20,6 +20,10 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0"/>
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="2.2.5"/>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6"/>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3"/>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="$(SwashbuckleAspNetCore)"/>
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.1"/>

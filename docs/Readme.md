@@ -7,6 +7,7 @@
 - [Login Serilog](#Login-Serilog)
 - [Monitorizar Login SEQ](#Monitorizar-Login-SEQ)
 - [Health Check WebApi](#Health-Check-WebApi)
+- [Database with EF](#Database-with-EF)
 
 ## Swagger OpenApi
 
@@ -111,3 +112,35 @@ Referencias:
 - https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-2.2
 - https://www.telerik.com/blogs/health-checks-in-aspnet-core
 - https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+
+
+## Database with EF
+
+Utilizar Entity Framework para la gestion de la base de datos.
+
+Instalacion de paquetes:
+
+- Microsoft.EntityFrameworkCore.SqlServer
+
+Referencias:
+- https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-2.2
+- https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/
+- https://stackoverflow.com/questions/48509470/ef-core-migrations-in-separate-project-issues
+
+
+### Crear Migracions EF
+
+Iniciar migracion en projecto separado del runtime
+
+> dotnet ef --startup-project ../ApiBuildDemo.Api/ migrations add InitialModel
+
+### Ejecutar SqlServer en un contenedor Docker
+
+Ejecutar un servidor de SqlServer en docker para poder utilizar entity framework.
+
+```
+docker run \
+  -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=P@ssw0rd1*.' \
+  -p 1433:1433 --name sqlserver1 \
+  -d microsoft/mssql-server-linux:2017-latest
+```

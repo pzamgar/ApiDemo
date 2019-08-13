@@ -16,9 +16,11 @@ namespace ApiBuildDemo.Api.Controllers {
     public class ValuesController : ControllerBase {
 
         private readonly ILoggerAdapter<ValuesController> _logger;
+        private readonly IValueService _valueService;
 
-        public ValuesController (ILoggerAdapter<ValuesController> logger) {
+        public ValuesController (ILoggerAdapter<ValuesController> logger, IValueService valueService) {
             _logger = logger;
+            _valueService = valueService;
         }
 
         /// <summary>
@@ -35,10 +37,8 @@ namespace ApiBuildDemo.Api.Controllers {
         [ProducesResponseType (typeof (List<string>), StatusCodes.Status200OK)]
         [ProducesResponseType (typeof (List<string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType (typeof (string), StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<string>> Get () {
-            var values = new string[] { "value1", "value2" };
-            _logger.LogWarning ("---> Prueba Seq docker");
-            return values;
+        public ActionResult<IList<string>> Get () {
+            return _valueService.GetValues ();
         }
     }
 }

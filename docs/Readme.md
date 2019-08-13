@@ -74,8 +74,28 @@ Instalacion de paquetes:
 Referencias:
 
 - https://docs.datalust.co/docs/getting-started-with-docker
+- https://github.com/serilog/serilog/wiki/Provided-Sinks
 - https://github.com/serilog/serilog-sinks-seq
 - https://github.com/dotnet-architecture/eShopOnContainers/wiki/Serilog-and-Seq
+
+### Ejecutar Seq en un contenedor Docker
+
+Ejecutar la app de Seq en un contenedor de docker para no tener que instalarse Seq.
+
+```
+docker run \
+  -d \
+  --restart unless-stopped \
+  --name seq \
+  -e ACCEPT_EULA=Y \
+  -v /tmp/seq/data:/data \
+  -p 5341:80 \
+  datalust/seq:latest
+  ```
+
+Ejecutar app Seq:
+> http://localhost:5341/#/events
+
 
 ## Health Check WebApi
 

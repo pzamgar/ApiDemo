@@ -27,6 +27,6 @@ Gestion de los logs registrados con Seq:
 > http://localhost:5341
 
 Gestion HealthCheck aplicacion:
-> http://localhost:5000/healthchecks-ui
+> http://localhost:3000/healthchecks-ui
 >
-> https://localhost:5001/hc
+> https://localhost:3001/hc

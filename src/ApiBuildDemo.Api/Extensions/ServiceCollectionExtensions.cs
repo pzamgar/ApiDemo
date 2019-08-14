@@ -4,13 +4,27 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ApiBuildDemo.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ServiceCollectionExtensions {
+
+        public static IServiceCollection AddContextCustom (
+            this IServiceCollection services,
+            IConfiguration configuration) {
+            services.AddDbContext<ValueContext> (options =>
+                options.UseSqlServer (
+                    configuration.GetConnectionString ("ValueConnection")
+                )
+            );
+            return services;
+        }
 
         public static IServiceCollection AddApiVersionCustom (this IServiceCollection services) {
 

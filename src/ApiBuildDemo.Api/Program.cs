@@ -50,9 +50,12 @@ namespace ApiBuildDemo.Api {
         }
 
         private static IConfiguration GetConfiguration () {
+            var whb = new WebHostBuilder ();
+            var environment = whb.GetSetting ("environment");
             var builder = new ConfigurationBuilder ()
                 .SetBasePath (Directory.GetCurrentDirectory ())
                 .AddJsonFile ("appsettings.json", optional : false, reloadOnChange : true)
+                .AddJsonFile ($"appsettings.{environment}.json", optional : false, reloadOnChange : true)
                 .AddEnvironmentVariables ();
 
             return builder.Build ();

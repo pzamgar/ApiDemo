@@ -131,8 +131,13 @@ Referencias:
 ### Crear Migracions EF
 
 Iniciar migracion en projecto separado del runtime
-
 > dotnet ef --startup-project ../ApiBuildDemo.Api/ migrations add InitialModel
+
+Crear migracion con el contexto concreto desde el projecto inicio
+> dotnet ef migrations add InitialModel -c ValueContext -s ../ApiBuildDemo.Api/ -v
+
+Update de la base de datos desde un punto concreto migrado.
+> dotnet ef database update InitialModel -s ../ApiBuildDemo.Api/ -v
 
 ### Ejecutar SqlServer en un contenedor Docker
 

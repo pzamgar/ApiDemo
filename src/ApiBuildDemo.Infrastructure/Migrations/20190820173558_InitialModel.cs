@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ApiBuildDemo.Infrastructure.Migrations
@@ -11,8 +11,9 @@ namespace ApiBuildDemo.Infrastructure.Migrations
                 name: "Values",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Message = table.Column<string>(nullable: true)
                 },

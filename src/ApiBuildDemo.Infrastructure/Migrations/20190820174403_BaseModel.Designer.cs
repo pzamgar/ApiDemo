@@ -4,14 +4,16 @@ using ApiBuildDemo.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiBuildDemo.Infrastructure.Migrations
 {
     [DbContext(typeof(ValueContext))]
-    partial class ValueContextModelSnapshot : ModelSnapshot
+    [Migration("20190820174403_BaseModel")]
+    partial class BaseModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

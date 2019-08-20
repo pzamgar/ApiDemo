@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using ApiBuildDemo.Core.Interfases;
 using ApiBuildDemo.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace ApiBuildDemo.Api.Controllers {
     [ApiController]
@@ -59,7 +56,7 @@ namespace ApiBuildDemo.Api.Controllers {
         [ProducesResponseType (typeof (Value), StatusCodes.Status200OK)]
         [ProducesResponseType (typeof (Value), StatusCodes.Status400BadRequest)]
         [ProducesResponseType (typeof (string), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Value>> GetValueByIdAsync (int id) {
+        public async Task<ActionResult<Value>> GetValueByIdAsync (Guid id) {
             var result = await _valueService.GetValueByIdAsync (id);
 
             if (result == null) {
@@ -110,7 +107,7 @@ namespace ApiBuildDemo.Api.Controllers {
         [ProducesResponseType (typeof (Value), StatusCodes.Status400BadRequest)]
         [ProducesResponseType (typeof (Value), StatusCodes.Status404NotFound)]
         [ProducesResponseType (typeof (string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteTodoItem (int id) {
+        public async Task<IActionResult> DeleteTodoItem (Guid id) {
 
             await _valueService.DeleteValueById (id);
             return NoContent ();

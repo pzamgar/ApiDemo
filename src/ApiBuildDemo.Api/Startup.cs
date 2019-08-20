@@ -1,32 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using ApiBuildDemo.Core.Extensions;
+﻿using ApiBuildDemo.Core.Extensions;
 using ApiBuildDemo.Core.Filters;
-using ApiBuildDemo.Infrastructure.Data;
-using HealthChecks.Publisher.Seq;
+using ApiBuildDemo.Infrastructure.Extensions;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ApiBuildDemo.Api {
     public class Startup {
@@ -60,6 +44,7 @@ namespace ApiBuildDemo.Api {
             services.AddHealthChecksUI ();
 
             services.AddCoreServices ();
+            services.AddInfrastructureServices ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

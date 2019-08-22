@@ -8,6 +8,6 @@ namespace ApiBuildDemo.Core.Interfases {
         Task<List<Value>> GetValuesAsync ();
         Task<Value> GetValueByIdAsync (Guid id);
         Task<Value> AddValueAsync (Value value);
-        Task DeleteValueById (Guid id);
+        Task DeleteValueByIdAsync (Guid id);
     }
 }

@@ -7,6 +7,7 @@ namespace ApiBuildDemo.Infrastructure.Data {
         public RepositoryContext (DbContextOptions<RepositoryContext> options) : base (options) { }
 
         public DbSet<Value> Values { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

@@ -80,7 +80,6 @@ namespace ApiBuildDemo.Api.Controllers {
         [HttpPost]
         [ProducesResponseType (typeof (Value), StatusCodes.Status201Created)]
         [ProducesResponseType (typeof (Value), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType (typeof (Value), StatusCodes.Status404NotFound)]
         [ProducesResponseType (typeof (string), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Value>> CreateValueAsync ([FromBody] Value value) {
             var result = await _valueService.AddValueAsync (value);
@@ -104,12 +103,12 @@ namespace ApiBuildDemo.Api.Controllers {
         /// <response code="404"></response> 
         /// <response code="500">Error of server</response> 
         [HttpDelete ("{id}")]
-        [ProducesResponseType (typeof (Value), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType (typeof (Value), StatusCodes.Status404NotFound)]
+        [ProducesResponseType (StatusCodes.Status400BadRequest)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesResponseType (typeof (string), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteTodoItem (Guid id) {
+        public async Task<IActionResult> DeleteValueByIdAsync (Guid id) {
 
-            await _valueService.DeleteValueById (id);
+            await _valueService.DeleteValueByIdAsync (id);
             return NoContent ();
         }
     }

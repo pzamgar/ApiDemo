@@ -7,6 +7,7 @@ namespace ApiBuildDemo.Infrastructure.Extensions {
         public static IServiceCollection AddInfrastructureServices (this IServiceCollection services) {
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IValueRepository, ValueRepository> ();
+            services.AddScoped<IUserRepository,UserRepository>();
             return services;
         }
     }

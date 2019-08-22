@@ -8,6 +8,8 @@ namespace ApiBuildDemo.Core.Extensions {
         public static IServiceCollection AddCoreServices (this IServiceCollection services) {
             services.AddSingleton (typeof (ILoggerAdapter<>), typeof (LoggerAdapter<>));
             services.AddTransient<IValueService, ValueService> ();
+            services.AddTransient<IUserService, UserService> ();
+            services.AddTransient<IAuthService, AuthService> ();
             return services;
         }
     }

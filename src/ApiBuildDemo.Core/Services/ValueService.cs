@@ -25,11 +25,11 @@ namespace ApiBuildDemo.Core.Services {
 
         public async Task<Value> AddValueAsync (Value value) {
             value.DateCreated = DateTime.UtcNow;
-            value.DateModified = DateTime.UtcNow;
+            //value.DateModified = DateTime.UtcNow;
             return await _valueRepository.Create(value);
         }
 
-        public async Task DeleteValueById (Guid id) {
+        public async Task DeleteValueByIdAsync (Guid id) {
             var value = await _valueRepository.GetById (id);
 
             if (value == null) {

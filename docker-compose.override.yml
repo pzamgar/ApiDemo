@@ -9,7 +9,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__ValueConnection=Server=sql;Database=MyDatabase;User Id=SA;Password=P@ssw0rd1*.;Connection Timeout=2
-      - HealtChecks-UI__HealthChecks__0__Uri=http://localhost:3000/hc
+      - HealthChecks-UI__HealthChecks__0__Uri=http://localhost:3000/hc
     ports:
       - 3000:80
   api-tests:

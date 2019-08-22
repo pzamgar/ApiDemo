@@ -1,8 +1,8 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base 
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app 
 EXPOSE 80 
 
-FROM microsoft/dotnet:2.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /build 
 COPY *.sln ./
 WORKDIR /build/src
@@ -23,7 +23,7 @@ RUN dotnet build -c Release -o /app
 WORKDIR /build/test/ApiBuildDemo.UnitTests
 RUN dotnet build -c Release -o /app
 
-FROM build AS test
+FROM build AS unittest
 WORKDIR /build/test/ApiBuildDemo.UnitTests
 RUN dotnet test
 

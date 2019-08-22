@@ -20,7 +20,7 @@
       build:
         context: .
         dockerfile: Dockerfile      
-        target: test
+        target: unittest
       volumes:
         - ./tmp/test:/tests
     sql:

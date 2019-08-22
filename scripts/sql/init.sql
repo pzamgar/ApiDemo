@@ -1,0 +1,4 @@
+DROP DATABASE MyDatabase;
+
+CREATE DATABASE MyDatabase;
+GO

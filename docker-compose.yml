@@ -6,18 +6,28 @@
       volumes:
         - ./tmp/seq:/data
       restart: unless-stopped
-    webapplication:
-      image: webapplication
+    api:
+      image: api
       build:
         context: .
         dockerfile: Dockerfile
       volumes:
         - ./tmp/logs:/logs
-    webapplication-tests:
-      image: webapplication-tests
+      depends_on:
+        - sql
+    api-tests:
+      image: api-tests
       build:
         context: .
         dockerfile: Dockerfile      
         target: test
       volumes:
-      - ./tmp/test:/tests
+        - ./tmp/test:/tests
+    sql:
+      image: mcr.microsoft.com/mssql/server:2017-latest
+      volumes:
+        - var/opt/mssql
+        - ./scripts/sql:/usr/src/app
+      working_dir: /usr/src/app
+      command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
+      

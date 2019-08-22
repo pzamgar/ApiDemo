@@ -147,5 +147,15 @@ Ejecutar un servidor de SqlServer en docker para poder utilizar entity framework
 docker run \
   -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=P@ssw0rd1*.' \
   -p 1433:1433 --name sqlserver1 \
-  -d microsoft/mssql-server-linux:2017-latest
+  -d mcr.microsoft.com/mssql/server:2017-latest
 ```
+
+### Configurar Database SQL server en Docker
+
+Configurar sql server en docker-compose y crear database con shell script
+
+Referencias:
+* https://cardano.github.io/blog/2017/11/15/mssql-docker-container
+* https://www.cathrinewilhelmsen.net/2018/12/02/sql-server-2019-docker-container/
+* https://dockertips.com/ms_sql_server
+* http://www.andreavallotti.tech/en/2017/10/using-ef-cores-migration-with-docker-and-mysql/

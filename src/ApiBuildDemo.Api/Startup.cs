@@ -51,7 +51,9 @@ namespace ApiBuildDemo.Api {
         public void Configure (IApplicationBuilder app,
             IHostingEnvironment env,
             IApiVersionDescriptionProvider provider) {
-            if (!env.IsDevelopment ()) {
+            if (env.IsDevelopment ()) {
+                app.UpdateDatabase ();
+            } else {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts ();
             }

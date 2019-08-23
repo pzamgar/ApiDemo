@@ -36,6 +36,7 @@ namespace ApiBuildDemo.Api {
             var seqServerUrl = Configuration["Serilog:SeqServerUrl"];
             services.AddHealthChecks ()
                 //.AddCheck ("unhealthy", check => HealthCheckResult.Unhealthy ())
+                .AddSqlServer (Configuration["ConnectionStrings:ValueConnection"])
                 .AddSeqPublisher (options => {
                     options.Endpoint = string.IsNullOrWhiteSpace (seqServerUrl) ? "http://seq" : seqServerUrl;
                     options.ApiKey = "A8buUymer3O9Iq0mc2G7";

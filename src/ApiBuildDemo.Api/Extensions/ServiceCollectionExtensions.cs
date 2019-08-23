@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ServiceCollectionExtensions {
@@ -20,6 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection {
         #region Extension Methods
         public static IServiceCollection AddContextCustom (this IServiceCollection services,
             IConfiguration configuration) {
+
+            services.AddHealthChecks ()
+                .AddDbContextCheck<RepositoryContext> ();
 
             var connectionString = configuration.GetConnectionString ("ValueConnection");
             services.AddDbContext<ValueContext> (o => o.UseSqlServer (connectionString));

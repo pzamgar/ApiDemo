@@ -1,16 +1,21 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
+using ApiBuildDemo.Core.Options;
 using ApiBuildDemo.Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ServiceCollectionExtensions {
 
+        #region Extension Methods
         public static IServiceCollection AddContextCustom (this IServiceCollection services,
             IConfiguration configuration) {
 
@@ -72,11 +77,41 @@ namespace Microsoft.Extensions.DependencyInjection {
             return services;
         }
 
+        public static IServiceCollection ConfigurationJwtAuthorization (this IServiceCollection services,
+            IConfiguration configuration) {
+
+            var authSettingsSection = configuration.GetSection ("AuthSettings");
+            services.Configure<AuthSettings> (authSettingsSection);
+
+            var authSettings = authSettingsSection.Get<AuthSettings> ();
+            var key = Encoding.ASCII.GetBytes (authSettings.Secret);
+
+            services.AddAuthentication (x => {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer (x => {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey (key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            return services;
+        }
+        #endregion
+
+        #region Private Methods
         private static string XmlCommentsFilePath () {
 
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine (AppContext.BaseDirectory, xmlFile);
             return xmlPath;
         }
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace ApiBuildDemo.Infrastructure.Implementation {
     public class UserRepository : RepositoryBase<User>, IUserRepository {
         public UserRepository (RepositoryContext context) : base (context) { }
 
-        public async Task<User> AddUser (User user) {
+        public async Task<User> AddUserAsync (User user) {
             var result = await FindFirst (u => u.UserName == user.UserName && u.Password == user.Password);
             if (result == null) {
                 user.DateCreated = DateTime.UtcNow;
@@ -17,8 +17,12 @@ namespace ApiBuildDemo.Infrastructure.Implementation {
             return null;
         }
 
-        public async Task<User> GetUser (User user) {
+        public async Task<User> GetUserAsync (User user) {
             return await FindFirst (u => u.UserName == user.UserName && u.Password == user.Password);
+        }
+
+        public async Task<User> GetUserByIdAsync (Guid guid) {
+            return await FindFirst (u => u.Id == guid);
         }
     }
 }

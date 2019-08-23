@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 
 namespace ApiBuildDemo.Api {
@@ -43,6 +42,9 @@ namespace ApiBuildDemo.Api {
                 });
             services.AddHealthChecksUI ();
 
+            // JWT Configuration
+            services.ConfigurationJwtAuthorization (Configuration);
+
             services.AddCoreServices ();
             services.AddInfrastructureServices ();
         }
@@ -75,7 +77,14 @@ namespace ApiBuildDemo.Api {
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
             app.UseHealthChecksUI ();
+
+            app.UseCors (o => o
+                .AllowAnyOrigin ()
+                .AllowAnyMethod ()
+                .AllowAnyHeader ());
+
             app.UseHttpsRedirection ();
+            app.UseAuthentication ();
             app.UseMvc ();
         }
     }

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ApiBuildDemo.Core.Interfases;
 using ApiBuildDemo.Infrastructure.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiBuildDemo.Api.Controllers {
+
+    [Authorize]
     [ApiController]
     [ApiVersion ("1")]
     [Route ("api/v{version:apiVersion}/[controller]")]
@@ -60,7 +63,7 @@ namespace ApiBuildDemo.Api.Controllers {
             var result = await _valueService.GetValueByIdAsync (id);
 
             if (result == null) {
-                return NotFound ();
+                return BadRequest ();
             }
 
             return Ok (result);
@@ -85,7 +88,7 @@ namespace ApiBuildDemo.Api.Controllers {
             var result = await _valueService.AddValueAsync (value);
 
             if (result == null) {
-                return NotFound ();
+                return BadRequest ();
             }
 
             return Ok (result);

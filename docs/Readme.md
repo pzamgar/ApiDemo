@@ -161,3 +161,13 @@ Referencias:
 * http://www.andreavallotti.tech/en/2017/10/using-ef-cores-migration-with-docker-and-mysql/
 
 ### Autenticacion y Autorizacion
+
+Se realizar la Autorizacion de la api via JWT, se genera un token para ser utilizado en las llamadas a las apis.
+
+Instalacion de paquetes:
+* Microsoft.AspNetCore.Authorization
+* System.IdentityModel.Tokens.Jwt
+
+Referencias:
+* https://www.variablenotfound.com/2017/12/autenticacion-jwt-en-apis-con-aspnet.html
+* https://jonhilton.net/security/apis/secure-your-asp.net-core-2.0-api-part-2---jwt-bearer-authentication/

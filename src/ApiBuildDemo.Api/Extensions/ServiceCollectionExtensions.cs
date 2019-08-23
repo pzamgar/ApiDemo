@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ServiceCollectionExtensions {
@@ -73,6 +75,25 @@ namespace Microsoft.Extensions.DependencyInjection {
                 }
 
                 options.IncludeXmlComments (XmlCommentsFilePath ());
+
+                options.AddSecurityDefinition ("Bearer", new OpenApiSecurityScheme {
+                    Description = "JWT Authorization header using the Bearer scheme.",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey
+                });
+
+                options.AddSecurityRequirement (new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme {
+                            Reference = new OpenApiReference {
+                                Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                            }
+                        },
+                        new List<string> { "readAccess", "writeAccess" }
+                    }
+                });
             });
             return services;
         }

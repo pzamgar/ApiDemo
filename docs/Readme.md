@@ -171,3 +171,5 @@ Instalacion de paquetes:
 Referencias:
 * https://www.variablenotfound.com/2017/12/autenticacion-jwt-en-apis-con-aspnet.html
 * https://jonhilton.net/security/apis/secure-your-asp.net-core-2.0-api-part-2---jwt-bearer-authentication/
+* https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/master/README-v5.md
+* https://stackoverflow.com/questions/56234504/migrating-to-swashbuckle-aspnetcore-version-5

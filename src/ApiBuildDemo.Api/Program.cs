@@ -30,10 +30,10 @@ namespace ApiBuildDemo.Api {
         }
         private static IWebHost BuildWebHost (IConfiguration configuration, string[] args) =>
             WebHost.CreateDefaultBuilder (args)
-            .UseStartup<Startup> ()
             .UseContentRoot (Directory.GetCurrentDirectory ())
             .UseConfiguration (configuration)
             .UseSerilog ()
+            .UseStartup<Startup> ()
             .Build ();
 
         private static Serilog.ILogger CreateSerilogLogger (IConfiguration configuration) {

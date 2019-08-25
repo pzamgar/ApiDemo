@@ -7,21 +7,24 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace ApiBuildDemo.Api {
     public class Startup {
-        public Startup (IConfiguration configuration) {
+        public Startup (IConfiguration configuration, IHostingEnvironment currentEnvironment) {
             Configuration = configuration;
+            CurrentEnvironment = currentEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices (IServiceCollection services) {
-            services.AddContextCustom (Configuration);
+        public virtual void ConfigureServices (IServiceCollection services) {
+            services.AddContextCustom (Configuration, CurrentEnvironment);
 
             services.AddMvc (options => {
                 options.Filters.Add (typeof (TrackActionPerformanceFilter));
@@ -33,15 +36,7 @@ namespace ApiBuildDemo.Api {
                 loggingBuilder.AddSeq ();
             });
 
-            var seqServerUrl = Configuration["Serilog:SeqServerUrl"];
-            services.AddHealthChecks ()
-                //.AddCheck ("unhealthy", check => HealthCheckResult.Unhealthy ())
-                .AddSqlServer (Configuration["ConnectionStrings:ValueConnection"])
-                .AddSeqPublisher (options => {
-                    options.Endpoint = string.IsNullOrWhiteSpace (seqServerUrl) ? "http://seq" : seqServerUrl;
-                    options.ApiKey = "A8buUymer3O9Iq0mc2G7";
-                });
-            services.AddHealthChecksUI ();
+            services.AddHealthChecksCustom (Configuration, CurrentEnvironment);
 
             // JWT Configuration
             services.ConfigurationJwtAuthorization (Configuration);

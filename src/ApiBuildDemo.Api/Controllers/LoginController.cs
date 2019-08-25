@@ -31,11 +31,11 @@ namespace ApiBuildDemo.Api.Controllers {
         /// <response code="200">Returns Token JWT</response>
         /// <response code="400">Returns Bad Request</response> 
         /// <response code="500">Error of server</response> 
-        [HttpPost ("signIn")]
+        [HttpPost ("SignIn")]
         [ProducesResponseType (typeof (UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType (StatusCodes.Status400BadRequest)]
         [ProducesResponseType (typeof (string), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<UserDto>> SignUp ([FromBody] UserDto user) {
+        public async Task<ActionResult<UserDto>> SignIn ([FromBody] UserDto user) {
 
             var result = await _userServices.SignInAsync (new User {
                 UserName = user.UserName,

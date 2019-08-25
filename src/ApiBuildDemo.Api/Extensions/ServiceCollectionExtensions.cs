@@ -6,6 +6,7 @@ using System.Text;
 using ApiBuildDemo.Core.Options;
 using ApiBuildDemo.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +19,19 @@ namespace Microsoft.Extensions.DependencyInjection {
 
         #region Extension Methods
         public static IServiceCollection AddContextCustom (this IServiceCollection services,
-            IConfiguration configuration) {
+            IConfiguration configuration, IHostingEnvironment currentEnvironment) {
 
             services.AddHealthChecks ()
                 .AddDbContextCheck<RepositoryContext> ();
 
-            var connectionString = configuration.GetConnectionString ("ValueConnection");
-            services.AddDbContext<ValueContext> (o => o.UseSqlServer (connectionString));
-            services.AddDbContext<RepositoryContext> (o => o.UseSqlServer (connectionString));
+            if (currentEnvironment.IsEnvironment ("Testing")) {
+                services.AddDbContext<RepositoryContext> (options =>
+                    options.UseInMemoryDatabase ("TestingDB"));
+            } else {
+                var connectionString = configuration.GetConnectionString ("ValueConnection");
+                services.AddDbContext<ValueContext> (o => o.UseSqlServer (connectionString));
+                services.AddDbContext<RepositoryContext> (o => o.UseSqlServer (connectionString));
+            }
 
             return services;
         }
@@ -125,6 +131,25 @@ namespace Microsoft.Extensions.DependencyInjection {
                 });
 
             return services;
+        }
+
+        public static IServiceCollection AddHealthChecksCustom (this IServiceCollection services,
+            IConfiguration configuration, IHostingEnvironment currentEnvironment) {
+
+            var seqServerUrl = configuration["Serilog:SeqServerUrl"];
+            services.AddHealthChecks ()
+                //.AddCheck ("unhealthy", check => HealthCheckResult.Unhealthy ())
+                .AddSqlServer (configuration["ConnectionStrings:ValueConnection"])
+                .AddSeqPublisher (options => {
+                    options.Endpoint = string.IsNullOrWhiteSpace (seqServerUrl) ? "http://seq" : seqServerUrl;
+                    options.ApiKey = "A8buUymer3O9Iq0mc2G7";
+                });
+
+            if (!currentEnvironment.IsEnvironment ("Testing")) {
+                services.AddHealthChecksUI ();
+            }
+            return services;
+
         }
         #endregion
 

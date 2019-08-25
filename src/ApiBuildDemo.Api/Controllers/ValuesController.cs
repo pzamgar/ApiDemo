@@ -24,6 +24,16 @@ namespace ApiBuildDemo.Api.Controllers {
             _valueService = valueService;
         }
 
+        [HttpGet("test")]
+        [AllowAnonymous]
+        public ActionResult<List<string>> GetValues () {
+            var result = new List<string> {
+                "value1",
+                "value2"
+            };
+            return result;
+        }
+
         /// <summary>
         /// Get list of values
         /// </summary>

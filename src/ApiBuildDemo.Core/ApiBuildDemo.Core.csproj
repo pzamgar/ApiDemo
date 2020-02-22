@@ -1,16 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.1"/>
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApiBuildDemo.Infrastructure\ApiBuildDemo.Infrastructure.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="$(MicrosoftAspNetCoreMvcCore)"/>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0"/>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0"/>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2"/>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2"/>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0"/>
   </ItemGroup>
 </Project>

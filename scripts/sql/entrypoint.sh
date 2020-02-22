@@ -1,7 +1,7 @@
 #!/bin/bash
 database=MyDatabase
-wait_time=15s
-password=P@ssw0rd1*.
+wait_time=30
+password=Passw0rd!
 
 echo importing data will start in $wait_time...
 sleep $wait_time

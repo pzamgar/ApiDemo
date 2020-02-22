@@ -7,28 +7,30 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace ApiBuildDemo.Api {
     public class Startup {
-        public Startup (IConfiguration configuration, IHostingEnvironment currentEnvironment) {
+        public Startup (IConfiguration configuration, IWebHostEnvironment currentEnvironment) {
             Configuration = configuration;
             CurrentEnvironment = currentEnvironment;
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment CurrentEnvironment { get; }
+        public IWebHostEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices (IServiceCollection services) {
             services.AddContextCustom (Configuration, CurrentEnvironment);
 
-            services.AddMvc (options => {
+            services.AddControllers (options =>
+            {
+                options.EnableEndpointRouting = false;
                 options.Filters.Add (typeof (TrackActionPerformanceFilter));
-            }).SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
+            }).SetCompatibilityVersion (CompatibilityVersion.Latest);
 
             services.AddApiVersionCustom ();
             services.AddSwaggerCustom ();
@@ -46,10 +48,11 @@ namespace ApiBuildDemo.Api {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure (IApplicationBuilder app,
-            IHostingEnvironment env,
+        public void Configure (
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
             IApiVersionDescriptionProvider provider) {
-            if (env.IsDevelopment ()) {
+            if (env.IsDevelopment()) {
                 app.UpdateDatabase ();
             } else {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -80,8 +83,10 @@ namespace ApiBuildDemo.Api {
                 .AllowAnyHeader ());
 
             app.UseHttpsRedirection ();
+            app.UseRouting();
             app.UseAuthentication ();
-            app.UseMvc ();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

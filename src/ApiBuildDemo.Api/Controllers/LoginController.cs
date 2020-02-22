@@ -42,7 +42,7 @@ namespace ApiBuildDemo.Api.Controllers {
                     Password = user.Password
             });
 
-            if (String.IsNullOrEmpty (result)) {
+            if (string.IsNullOrEmpty (result)) {
                 return BadRequest ();
             }
 
@@ -72,7 +72,7 @@ namespace ApiBuildDemo.Api.Controllers {
                     Password = user.Password
             });
 
-            if (String.IsNullOrEmpty (result)) {
+            if (string.IsNullOrEmpty (result)) {
                 return BadRequest ();
             }
 

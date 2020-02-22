@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using ApiBuildDemo.Core.Interfases;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
 
 namespace ApiBuildDemo.Core.Attributes {
     public class TrackPerformanceAttribute : ActionFilterAttribute {

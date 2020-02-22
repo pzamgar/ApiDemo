@@ -9,7 +9,7 @@ Demo practica de una webapi realizada en .net core.
 Ejecucion webapi en docker y continuous deployment con appveyor.
 
 > IMPORTANTE
->
+
 > La rama master corre sobre .net core 3.1
 
 

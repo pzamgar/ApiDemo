@@ -9,15 +9,17 @@ Demo practica de una webapi realizada en .net core.
 Ejecucion webapi en docker y continuous deployment con appveyor.
 
 > IMPORTANTE
->
-> La rama master corre sobre .net core 2.2.
+
+> La rama master corre sobre .net core 3.1
 
 
 ## Running the sample using Docker
 
 Construir y levantar Demo en Docker:
 > docker-compose build
->
+
+> docker-compose up -d sql
+
 > docker-compose up
 
 Documentacion OpenApi con Swagger:

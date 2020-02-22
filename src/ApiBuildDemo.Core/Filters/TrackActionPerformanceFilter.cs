@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 using ApiBuildDemo.Core.Interfases;
 using Microsoft.AspNetCore.Mvc.Filters;

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -18,13 +19,15 @@ namespace Microsoft.Extensions.DependencyInjection {
     public static class ServiceCollectionExtensions {
 
         #region Extension Methods
-        public static IServiceCollection AddContextCustom (this IServiceCollection services,
-            IConfiguration configuration, IHostingEnvironment currentEnvironment) {
+        public static IServiceCollection AddContextCustom (
+            this IServiceCollection services,
+            IConfiguration configuration, 
+            IWebHostEnvironment currentEnvironment) {
 
             services.AddHealthChecks ()
                 .AddDbContextCheck<RepositoryContext> ();
 
-            if (currentEnvironment.IsEnvironment ("Testing")) {
+            if (currentEnvironment.IsEnvironment("Testing")) {
                 services.AddDbContext<RepositoryContext> (options =>
                     options.UseInMemoryDatabase ("TestingDB"));
             } else {
@@ -61,7 +64,6 @@ namespace Microsoft.Extensions.DependencyInjection {
                     .GetRequiredService<IApiVersionDescriptionProvider> ();
 
                 options.DescribeAllParametersInCamelCase ();
-                options.DescribeStringEnumsInCamelCase ();
                 foreach (var apiVersion in provider.ApiVersionDescriptions) {
                     var apiVersionName = apiVersion.ApiVersion.ToString ();
                     options.SwaggerDoc (apiVersion.GroupName,
@@ -133,8 +135,10 @@ namespace Microsoft.Extensions.DependencyInjection {
             return services;
         }
 
-        public static IServiceCollection AddHealthChecksCustom (this IServiceCollection services,
-            IConfiguration configuration, IHostingEnvironment currentEnvironment) {
+        public static IServiceCollection AddHealthChecksCustom (
+            this IServiceCollection services,
+            IConfiguration configuration, 
+            IWebHostEnvironment currentEnvironment) {
 
             var seqServerUrl = configuration["Serilog:SeqServerUrl"];
             services.AddHealthChecks ()

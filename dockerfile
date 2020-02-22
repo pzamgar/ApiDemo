@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 WORKDIR /app 
 EXPOSE 80 
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /build 
 COPY *.sln ./
 WORKDIR /build/src
@@ -11,6 +11,7 @@ COPY src/ApiBuildDemo.Core/ApiBuildDemo.Core.csproj ApiBuildDemo.Core/
 COPY src/ApiBuildDemo.Infrastructure/ApiBuildDemo.Infrastructure.csproj ApiBuildDemo.Infrastructure/
 WORKDIR /build/test
 COPY test/ApiBuildDemo.UnitTests/ApiBuildDemo.UnitTests.csproj ApiBuildDemo.UnitTests/
+COPY test/ApiBuildDemo.FunctionalTests/ApiBuildDemo.FunctionalTests.csproj ApiBuildDemo.FunctionalTests/
 WORKDIR /build
 RUN dotnet restore -nowarn:msb3202,nu1503
 COPY . .
@@ -21,6 +22,8 @@ RUN dotnet build -c Release -o /app
 WORKDIR /build/src/ApiBuildDemo.Infrastructure
 RUN dotnet build -c Release -o /app
 WORKDIR /build/test/ApiBuildDemo.UnitTests
+RUN dotnet build -c Release -o /app
+WORKDIR /build/test/ApiBuildDemo.FunctionalTests
 RUN dotnet build -c Release -o /app
 
 FROM build AS unittest
